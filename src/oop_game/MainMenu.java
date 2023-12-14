@@ -40,20 +40,12 @@ public class MainMenu {
         wordleButton = new JButton("Wordle");
         hangmanButton = new JButton("Hangman");
 
-        customizeButton(wordleButton, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuFrame.dispose();
-                new WordleMain();
-            }
+        customizeButton(wordleButton, e -> {
+            menuFrame.dispose();
+            new WordleMain();
         });
 
-        customizeButton(hangmanButton, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showDifficultySelection();
-            }
-        });
+        customizeButton(hangmanButton, e -> showDifficultySelection());
 
         buttonsPanel.add(wordleButton);
         buttonsPanel.add(hangmanButton);
@@ -65,9 +57,8 @@ public class MainMenu {
         menuFrame.add(buttonsPanel);
         menuFrame.setVisible(true);
     }
-    
     private void showDifficultySelection() {
-        menuFrame.getContentPane().removeAll(); // Clear existing components
+        menuFrame.getContentPane().removeAll();
 
         JLabel difficultyLabel = new JLabel("Select Difficulty");
         difficultyLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -82,22 +73,9 @@ public class MainMenu {
         JButton easyButton = new JButton("Easy");
         JButton hardButton = new JButton("Hard");
 
-        customizeButton(easyButton, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuFrame.dispose();
-//                new HangmanMain(new FileWordSource(), WordSource.DifficultyLevel.EASY, 6).startHangman();
-            }
-        });
+        customizeButton(easyButton, e -> startHangman(WordSource.DifficultyLevel.EASY, 6));
 
-
-        customizeButton(hardButton, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menuFrame.dispose();
-//                new HangmanMain(new FileWordSource(), WordSource.DifficultyLevel.HARD, 6).startHangman();
-            }
-        });
+        customizeButton(hardButton, e -> startHangman(WordSource.DifficultyLevel.HARD, 8));
 
         difficultyPanel.add(easyButton);
         difficultyPanel.add(hardButton);
@@ -112,8 +90,15 @@ public class MainMenu {
         menuFrame.revalidate();
         menuFrame.repaint();
     }
-    
-    
+
+    private void startHangman(WordSource.DifficultyLevel difficulty, int maxTries) {
+        menuFrame.dispose();
+        HangmanMain hangmanGame = new HangmanMain(new FileWordSource(), difficulty, maxTries);
+        new HangmanGUI(hangmanGame);
+    }
+
+
+
     private void customizeButton(JButton button, ActionListener actionListener) {
         button.setBackground(new Color(50, 205, 50)); // Green color
         button.setForeground(Color.WHITE);
