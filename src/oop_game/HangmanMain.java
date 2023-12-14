@@ -4,16 +4,14 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class HangmanMain {
-    private final String chosenWord;
+public class HangmanMain extends GuessingGame{
     private final Set<Character> userGuesses;
     private boolean correctOrNot;
     private int wordChecker;
-    private int remainingTries;
     private int hintCounter;  // New field to track hints given
 
     public HangmanMain(WordSource wordSource, WordSource.DifficultyLevel difficulty, int maxTries) {
-        this.chosenWord = wordSource.getRandomWord(difficulty);
+        super(wordSource, difficulty, maxTries);
         this.userGuesses = new HashSet<>();
         this.correctOrNot = false;
         this.wordChecker = 0;
@@ -76,7 +74,7 @@ public class HangmanMain {
     }
 
     private int getMaxHints() {
-        return (remainingTries == 6) ? 3 : 2;  // Adjust based on remaining tries
+        return (getRemainingTries() == 6) ? 3 : 2;  // Adjust based on remaining tries
     }
 
     public void makeGuess(String guess) {
@@ -85,12 +83,12 @@ public class HangmanMain {
 
         // Decrease remainingTries only if the guess is incorrect
         if (!correctOrNot && guessedLetter != '\0' && !chosenWord.contains(String.valueOf(guessedLetter))) {
-            remainingTries--;
+        	decrementTries();
         }
 
         printWordState();
 
-        if (remainingTries == 0) {
+        if (getRemainingTries() == 0) {
             System.out.println("\nYou lost. Game Over!");
             System.out.println("The correct word was: " + chosenWord);
         }
@@ -122,10 +120,10 @@ public class HangmanMain {
         remainingTries = 0;
     }
     public boolean isGameOver() {
-        return correctOrNot || remainingTries == 0;
+        return correctOrNot || getRemainingTries() == 0;
     }
 
-    private void printWordState() {
+    protected void printWordState() {
         wordChecker = 0;
         for (int x = 0; x < chosenWord.length(); x++) {
             char currentChar = chosenWord.charAt(x);
@@ -139,7 +137,7 @@ public class HangmanMain {
 
         System.out.println();
         System.out.println("Guessed Letters: " + userGuesses);
-        System.out.println("Remaining Tries: " + remainingTries);
+        System.out.println("Remaining Tries: " + getRemainingTries());
     }
     public String getVisibleWord() {
         StringBuilder visibleWord = new StringBuilder();

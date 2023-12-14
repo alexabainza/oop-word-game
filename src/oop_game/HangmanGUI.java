@@ -2,8 +2,11 @@ package oop_game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Set;
 
-public class HangmanGUI {
+public class HangmanGUI extends GuessingGame implements ActionListener, GameBase {
     private final HangmanMain hangmanGame;
     private final JFrame frame;
     private final JLabel wordLabel;
@@ -15,6 +18,7 @@ public class HangmanGUI {
     private final JButton quitButton;
 
     public HangmanGUI(HangmanMain hangmanGame) {
+        super(new FileWordSource(), WordSource.DifficultyLevel.EASY, 6);
         this.hangmanGame = hangmanGame;
 
         // Create and configure the main JFrame
@@ -75,10 +79,9 @@ public class HangmanGUI {
 
         // Check for game over
         if (hangmanGame.isGameOver()) {
-            showGameOverDialog();
+            showGameOverDialog(false);
         }
     }
-
     private void giveHint() {
         hangmanGame.giveHint();
 
@@ -87,13 +90,13 @@ public class HangmanGUI {
 
         // Check for game over
         if (hangmanGame.isGameOver()) {
-            showGameOverDialog();
+            showGameOverDialog(false);
         }
     }
 
     private void quit() {
         hangmanGame.giveUp();
-        showGameOverDialog();
+        showGameOverDialog(false);
     }
 
 //    private void updateGUI() {
@@ -110,27 +113,11 @@ public class HangmanGUI {
 
         // Check if the game is over
         if (hangmanGame.isGameOver()) {
-            showGameOverDialog();
+            showGameOverDialog(false);
         }
     }
 
-    private void showGameOverDialog() {
-        String message;
-        if (hangmanGame.isGameWon()) {
-            message = "Congratulations! You guessed the word.";
-        } else {
-            message = "Sorry, you lost. The correct word was: " + hangmanGame.getChosenWord();
-        }
-
-        // Close the application
-
-        JOptionPane.showMessageDialog(frame, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
-
-        // Dispose the current HangmanGUI frame
-        frame.dispose();
-
-        // Create a new instance of MainMenu
-        SwingUtilities.invokeLater(() -> new MainMenu().menuFrame.setVisible(true));    }
+ 
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -138,4 +125,78 @@ public class HangmanGUI {
             new HangmanGUI(hangmanGame);
         });
     }
+
+	@Override
+	public String getRandomWord() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void play() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void giveUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isGameOver() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void printWordState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getVisibleWord() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Character> getGuessedLetters() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isGameWon() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getRemainingTries() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getChosenWord() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void makeGuess(String guess) {
+		// TODO Auto-generated method stub
+		
+	}
 }
