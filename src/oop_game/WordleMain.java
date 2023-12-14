@@ -26,13 +26,15 @@ public class WordleMain extends GuessingGame implements ActionListener, GameBase
         initializeGame();
         remainingTriesLabel = new JLabel("Remaining Tries: " + getRemainingTries());
         gameFrame.add(remainingTriesLabel);
+        gameFrame.add(backToMainMenuButton);
+
     }
 
     private void initializeGameFrame() {
         gameFrame = new JFrame("Wordle Game");
         gameFrame.setSize(300, 300);
         gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        gameFrame.setLayout(new GridLayout(8, 1));
+        gameFrame.setLayout(new GridLayout(9, 1));
         gameFrame.setLocationRelativeTo(null);
         
         
@@ -105,7 +107,7 @@ public class WordleMain extends GuessingGame implements ActionListener, GameBase
 
     private void endGame(boolean isWinner, String winMessage, String loseMessage) {
         clearAllPanels();
-        if (isWinner) {
+        if (isGameWon()) {
             showGameOverDialog(true);
         } else {
             showGameOverDialog(false);
@@ -113,8 +115,12 @@ public class WordleMain extends GuessingGame implements ActionListener, GameBase
         gameFrame.dispose();
         showMainMenu();
     }
+
     private void showMainMenu() {
-        SwingUtilities.invokeLater(() -> new MainMenu());
+        SwingUtilities.invokeLater(() -> {
+            gameFrame.dispose();
+            new MainMenu();
+        });
     }
 
     private boolean isWordleWordEqualTo(String userWord) {
@@ -148,7 +154,7 @@ public class WordleMain extends GuessingGame implements ActionListener, GameBase
         }
 
         System.out.println("Comparison Result: " + Arrays.equals(wordleWordsArray, userWordsArray));
-
+        setCorrectOrNot(Arrays.equals(wordleWordsArray, userWordsArray));
         return Arrays.equals(wordleWordsArray, userWordsArray);
     }
 
@@ -157,19 +163,5 @@ public class WordleMain extends GuessingGame implements ActionListener, GameBase
         return super.wordSource.getRandomWord(WordSource.DifficultyLevel.EASY);
     }
 
-
-	@Override
-	public boolean isGameOver() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-
-	@Override
-	public boolean isGameWon() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 }

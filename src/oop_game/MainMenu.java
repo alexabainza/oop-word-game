@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainMenu {
+public class MainMenu extends JFrame {
     JFrame menuFrame;
     private JLabel chooseGameLabel;
     private JButton wordleButton;

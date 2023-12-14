@@ -18,7 +18,7 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
     private final JButton quitButton;
 
     public HangmanGUI(HangmanMain hangmanGame) {
-        super(new FileWordSource(), WordSource.DifficultyLevel.EASY, 6);
+        super(hangmanGame.getWordSource(), WordSource.DifficultyLevel.EASY, 6);
         this.hangmanGame = hangmanGame;
 
         // Create and configure the main JFrame
@@ -45,6 +45,7 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
         frame.add(guessButton);
         frame.add(hintButton);
         frame.add(quitButton);
+        frame.add(backToMainMenuButton);
 
         // Set up event handling
         guessButton.addActionListener(e -> handleGuess());
@@ -79,7 +80,9 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
 
         // Check for game over
         if (hangmanGame.isGameOver()) {
-            showGameOverDialog(false);
+//            JOptionPane.showMessageDialog(null, "The correct word is " + getChosenWord(), "Game Over", JOptionPane.INFORMATION_MESSAGE);
+            frame.dispose();
+            showMainMenu();
         }
     }
     private void giveHint() {
@@ -90,13 +93,19 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
 
         // Check for game over
         if (hangmanGame.isGameOver()) {
-            showGameOverDialog(false);
+//            showGameOverDialog(false);
+            frame.dispose();
+            showMainMenu();
         }
     }
-
+    
+    
+    
     private void quit() {
         hangmanGame.giveUp();
-        showGameOverDialog(false);
+//        showGameOverDialog(false);
+        frame.dispose();
+        showMainMenu();
     }
 
 //    private void updateGUI() {
@@ -113,18 +122,28 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
 
         // Check if the game is over
         if (hangmanGame.isGameOver()) {
-            showGameOverDialog(false);
+//            showGameOverDialog(false);
+//            frame.dispose();
+            showMainMenu();
+        }
+        if(hangmanGame.isGameWon()) {
+//            frame.dispose();
+            showMainMenu();
         }
     }
 
- 
-
+    
+    private void showMainMenu() {
+    	frame.dispose();
+        SwingUtilities.invokeLater(() -> new MainMenu());
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             HangmanMain hangmanGame = new HangmanMain(new FileWordSource(), WordSource.DifficultyLevel.EASY, 6);
             new HangmanGUI(hangmanGame);
         });
     }
+
 
 	@Override
 	public String getRandomWord() {
@@ -139,8 +158,6 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
 	}
 
 
-
-
 	@Override
 	public boolean isGameOver() {
 		// TODO Auto-generated method stub
@@ -151,6 +168,12 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
 
 
 	@Override
+	public boolean isGameWon() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public int getRemainingTries() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -159,7 +182,7 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
 	@Override
 	public String getChosenWord() {
 		// TODO Auto-generated method stub
-		return null;
+		return chosenWord;
 	}
 
 	@Override
@@ -167,10 +190,21 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
 		// TODO Auto-generated method stub
 		
 	}
+	
+//	 @Override
+//	    protected void showGameOverDialog(boolean isWinner) {
+//	        String message;
+//	        if (isWinner) {
+//	            message = "Congratulations! You guessed the word.";
+//	        } else {
+//	            message = "Sorry, you lost. The correct word was: " + getChosenWord();
+//	        }
+//
+//	        // Display the game over dialogue
+//	        JOptionPane.showMessageDialog(null, message, "Game Over", JOptionPane.INFORMATION_MESSAGE);
+//
+//	        // Add any additional logic or actions specific to HangmanMain after game over
+//	        // For example, you might want to start a new game or return to the main menu.
+//	    }
 
-	@Override
-	public boolean isGameWon() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
