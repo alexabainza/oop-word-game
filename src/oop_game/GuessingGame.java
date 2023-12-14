@@ -22,20 +22,12 @@ public abstract class GuessingGame {
 
     }
 
-    public abstract void play();
-
-
     public abstract void makeGuess(String guess);
 
-    public abstract void giveUp();
+    public boolean isGameOver() {
+    	return remainingTries==0;
+    }
 
-    public abstract boolean isGameOver();
-
-    protected abstract void printWordState();
-
-    public abstract String getVisibleWord();
-
-    public abstract Set<Character> getGuessedLetters();
 
     public abstract boolean isGameWon();
 

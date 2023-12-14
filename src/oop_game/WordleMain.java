@@ -157,17 +157,6 @@ public class WordleMain extends GuessingGame implements ActionListener, GameBase
         return super.wordSource.getRandomWord(WordSource.DifficultyLevel.EASY);
     }
 
-	@Override
-	public void play() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void giveUp() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public boolean isGameOver() {
@@ -175,23 +164,7 @@ public class WordleMain extends GuessingGame implements ActionListener, GameBase
 		return false;
 	}
 
-	@Override
-	public void printWordState() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public String getVisibleWord() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Character> getGuessedLetters() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean isGameWon() {

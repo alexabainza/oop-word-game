@@ -138,19 +138,8 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
 		
 	}
 
-	@Override
-	public void play() {
-		// TODO Auto-generated method stub
-		
-	}
 
 
-
-	@Override
-	public void giveUp() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public boolean isGameOver() {
@@ -158,29 +147,8 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
 		return false;
 	}
 
-	@Override
-	public void printWordState() {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public String getVisibleWord() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Set<Character> getGuessedLetters() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isGameWon() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public int getRemainingTries() {
@@ -198,5 +166,11 @@ public class HangmanGUI extends GuessingGame implements ActionListener, GameBase
 	public void makeGuess(String guess) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean isGameWon() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
